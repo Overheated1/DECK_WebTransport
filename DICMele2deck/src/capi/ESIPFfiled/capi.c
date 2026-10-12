@@ -273,27 +273,36 @@ void ctrail(int argc, char *argv[]) {
     //enclosed (level series: one instance per series)
     if (dataFilename != NULL) {
         memcpy(groupKey+eUIlength+sUIlength+8,dataFilename,7);
-        FILE *dataptr = fopen(groupKey+1, "w");
-        if (dataptr == NULL) {
-            printf("cannot touch %s\n",groupKey+1);
-            exit(-33);
+        if (newDir || (access(groupKey+1, F_OK) != 0)) {
+            FILE *dataptr = fopen(groupKey+1, "w");
+            if (dataptr == NULL) {
+                printf("cannot touch %s\n",groupKey+1);
+                exit(-33);
+            }
+            if (fwrite(data.Vp, 1, data.Vl, dataptr) != data.Vl)
+            {
+                printf("cannot write %s\n",groupKey+1);
+                exit(-33);
+            }
+            fclose(dataptr);
         }
-        if (fwrite(data.Vp, 1, data.Vl, dataptr) != data.Vl)
-        {
-            printf("cannot write %s\n",groupKey+1);
-            exit(-33);
-        }
-        fclose(dataptr);
     }
 
-    //---------------------------- instance ----------------------------
+    //---------------------------- I dir
     groupKey[0]=eUIlength+sUIlength+iUIlength+77;
     memcpy(groupKey+eUIlength+sUIlength+8,iUI,iUIlength);
     groupKey[eUIlength+sUIlength+iUIlength+8]=0x00;
 
-    //instance dir
-    printf("iUI:%d\n",mkdir(groupKey+1, 0777));//0 created -1 failed
+    if (mkdir(groupKey+1, 0777)==-1) {//0=created -1=failed
+        if (errno!=17) //17=already existing
+        {
+            printf("Failed to create directory %s: %d %s\n", groupKey+1, errno, strerror(errno));
+            exit(exitMkdirFailure);
+        }
+        newDir=false;
+    }
 
+    //---------------------------- I
     memcpy(groupKey+eUIlength+sUIlength+8,iUI,iUIlength);
     groupKey[eUIlength+sUIlength+iUIlength+8]='/';
     groupKey[eUIlength+sUIlength+iUIlength+9]='-';
@@ -324,18 +333,20 @@ void ctrail(int argc, char *argv[]) {
     blake3offset=groupKey+eUIlength+sUIlength+iUIlength+14;
     for (u32 hexa=0;hexa<32;hexa++) { sprintf(blake3offset+hexa+hexa, "%02x", blake32[hexa]);}
 
-    //write I attributes
-    FILE *instanceptr = fopen(groupKey+1, "w");
-    if (instanceptr == NULL) {
-        printf("cannot touch %s\n",groupKey+1);
-        exit(-33);
+    if (newDir || (access(groupKey+1, F_OK) != 0)) {
+        //write I attributes
+        FILE *instanceptr = fopen(groupKey+1, "w");
+        if (instanceptr == NULL) {
+            printf("cannot touch %s\n",groupKey+1);
+            exit(-33);
+        }
+        if (fwrite(&groupBytes, 1, cursor, instanceptr) != cursor)
+        {
+            printf("cannot write I to %s\n",groupKey+1);
+            exit(-33);
+        }
+        fclose(instanceptr);
     }
-    if (fwrite(&groupBytes, 1, cursor, instanceptr) != cursor)
-    {
-        printf("cannot write I to %s\n",groupKey+1);
-        exit(-33);
-    }
-    fclose(instanceptr);
 
     //---------------------------- private ----------------------------
     if (pKVlength>0) {
@@ -366,34 +377,56 @@ void ctrail(int argc, char *argv[]) {
         blake3offset=groupKey+eUIlength+sUIlength+iUIlength+14;
         for (u32 hexa=0;hexa<32;hexa++) { sprintf(blake3offset+hexa+hexa, "%02x", blake32[hexa]);}
 
-        //write P attributes
-        FILE *privateptr = fopen(groupKey+1, "w");
-        if (privateptr == NULL) {
-            printf("cannot touch %s\n",groupKey+1);
-            exit(-33);
+        if (newDir || (access(groupKey+1, F_OK) != 0)) {
+            //write P attributes
+            FILE *privateptr = fopen(groupKey+1, "w");
+            if (privateptr == NULL) {
+                printf("cannot touch %s\n",groupKey+1);
+                exit(-33);
+            }
+            if (fwrite(&groupBytes, 1, cursor, privateptr) != cursor)
+            {
+                printf("cannot write I to %s\n",groupKey+1);
+                exit(-33);
+            }
+            fclose(privateptr);
         }
-        if (fwrite(&groupBytes, 1, cursor, privateptr) != cursor)
-        {
-            printf("cannot write I to %s\n",groupKey+1);
-            exit(-33);
-        }
-        fclose(privateptr);
     }
 
-    //--------------------------- frames -----------------------------
+    //--------------------------- F -----------------------------
     // https://dicom.nema.org/medical/Dicom/2024c/output/chtml/part03/sect_C.7.6.6.html
-    groupKey[0]=eUIlength+sUIlength+iUIlength+17;
+
+
+    //group key length: date/E/S/I/[G|R|P]/nnnnn
+    //groupKey[0]=eUIlength+sUIlength+iUIlength+15;
+
+    //cursor=frame size. It is copied to groupKey
     cursor=cols * rows * comp * alloc / 8;
-    memcpy(groupKey+eUIlength+sUIlength+iUIlength+18,&cursor,4);
+    //memcpy(groupKey+eUIlength+sUIlength+iUIlength+18,&cursor,4);
     if (fram==0) fram=1;
-    char *ffilename=groupKey+eUIlength+sUIlength+iUIlength+9;
+
+
+
+    char *ffilename=groupKey+eUIlength+sUIlength+iUIlength+11;
     ffilename[9]=0;
     switch (photo) {
         case MONOCHROME1:
-        case MONOCHROME2://OPC (opacity)
+        case MONOCHROME2://G (opacity)
         {
+            groupKey[eUIlength+sUIlength+iUIlength+9]='G';
+            groupKey[eUIlength+sUIlength+iUIlength+10]='/';
+            groupKey[eUIlength+sUIlength+iUIlength+11]=0x00;
+            if (mkdir(groupKey+1, 0777)==-1) {//0=created -1=failed
+                if (errno!=17) //17=already existing
+                {
+                    printf("Failed to create directory %s: %d %s\n", groupKey+1, errno, strerror(errno));
+                    exit(exitMkdirFailure);
+                }
+                newDir=false;
+            }
+
             for (int f=0; f<fram; f++) {
-                snprintf(ffilename,10,"%05d.OPC",f+1);
+                snprintf(ffilename,6,"%05d",f+1);
                 FILE *frameptr = fopen(groupKey+1, "w");
                 if (frameptr == NULL) {
                     printf("cannot touch %s\n",groupKey+1);
@@ -408,10 +441,21 @@ void ctrail(int argc, char *argv[]) {
             }
         } break;
 
-        case PALETTE://PLT
+        case PALETTE://P
         {
+            groupKey[eUIlength+sUIlength+iUIlength+9]='P';
+            groupKey[eUIlength+sUIlength+iUIlength+10]='/';
+            groupKey[eUIlength+sUIlength+iUIlength+11]=0x00;
+            if (mkdir(groupKey+1, 0777)==-1) {//0=created -1=failed
+                if (errno!=17) //17=already existing
+                {
+                    printf("Failed to create directory %s: %d %s\n", groupKey+1, errno, strerror(errno));
+                    exit(exitMkdirFailure);
+                }
+                newDir=false;
+            }
             for (int f=0; f<fram; f++) {
-                snprintf(ffilename,10,"%05d.PLT",f+1);
+                snprintf(ffilename,6,"%05d",f+1);
                 FILE *frameptr = fopen(groupKey+1, "w");
                 if (frameptr == NULL) {
                     printf("cannot touch %s\n",groupKey+1);
@@ -426,10 +470,21 @@ void ctrail(int argc, char *argv[]) {
             }
         } break;
 
-        case RGB: { //RGB
+        case RGB: { //R
+            groupKey[eUIlength+sUIlength+iUIlength+9]='R';
+            groupKey[eUIlength+sUIlength+iUIlength+10]='/';
+            groupKey[eUIlength+sUIlength+iUIlength+11]=0x00;
+            if (mkdir(groupKey+1, 0777)==-1) {//0=created -1=failed
+                if (errno!=17) //17=already existing
+                {
+                    printf("Failed to create directory %s: %d %s\n", groupKey+1, errno, strerror(errno));
+                    exit(exitMkdirFailure);
+                }
+                newDir=false;
+            }
             //needs to interleave instead of plane by plane
             for (int f=0; f<fram; f++) {
-                snprintf(ffilename,10,"%05d.RGB",f+1);
+                snprintf(ffilename,6,"%05d",f+1);
                 FILE *frameptr = fopen(groupKey+1, "w");
                 if (frameptr == NULL) {
                     printf("cannot touch %s\n",groupKey+1);

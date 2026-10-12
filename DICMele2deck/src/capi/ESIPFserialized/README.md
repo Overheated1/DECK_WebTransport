@@ -43,18 +43,18 @@ In these cases, the group does contain the encapsulated object (instead of a lis
 The object length is exact, with no padding null char in case the length is odd.
 
 ## group key components
-| category             | key prefix         | key name         |  key suffix  | comment                       |
-|----------------------|--------------------|------------------|--------------|-------------------------------|
-| Exam+patient         | date/E/     (even) | --           (2) | .blake3 (65) |                               |
-| Series               | date/E/S/    (odd) | ---          (3) | .blake3 (65) |                               |
-| PDF                  | date/E/S/    (odd) | ps           (2) | .pdf    (4)  | 1.2.840.10008.5.1.4.1.1.104.1 |
-| CDA                  | date/E/S/    (odd) | uc sc ds ot  (2) | .xml    (4)  | 1.2.840.10008.5.1.4.1.1.104.2 |
-| STL                  | date/E/S/    (odd) | 3d           (2) | .stl    (4)  | 1.2.840.10008.5.1.4.1.1.104.3 |
-| OBJ                  | date/E/S/    (odd) | tx           (2) | .obj    (4)  | 1.2.840.10008.5.1.4.1.1.104.4 |
-| MTL                  | date/E/S/    (odd) | tx           (2) | .mtl    (4)  | 1.2.840.10008.5.1.4.1.1.104.5 |
-| AV1                  | date/E/S/    (odd) | sp tm        (2) | .av1    (4)  | spatial or temporal           |
-| Instance+sop+private | date/E/S/I/ (even) | priv ----    (4) | .blake3 (65) | private + 0002                |
-| Frame                | date/E/S/I/ (even) | 00001..99999 (5) | .xxx    (4)  | one frame one file            |
+| category             | key prefix           | key name         |  key suffix  | comment                       |
+|----------------------|----------------------|------------------|--------------|-------------------------------|
+| Exam+patient         | date/E/       (even) | --           (2) | .blake3 (65) |                               |
+| Series               | date/E/S/      (odd) | ---          (3) | .blake3 (65) |                               |
+| PDF                  | date/E/S/      (odd) | ps           (2) | .pdf    (4)  | 1.2.840.10008.5.1.4.1.1.104.1 |
+| CDA                  | date/E/S/      (odd) | uc sc ds ot  (2) | .xml    (4)  | 1.2.840.10008.5.1.4.1.1.104.2 |
+| STL                  | date/E/S/      (odd) | 3d           (2) | .stl    (4)  | 1.2.840.10008.5.1.4.1.1.104.3 |
+| OBJ                  | date/E/S/      (odd) | tx           (2) | .obj    (4)  | 1.2.840.10008.5.1.4.1.1.104.4 |
+| MTL                  | date/E/S/      (odd) | tx           (2) | .mtl    (4)  | 1.2.840.10008.5.1.4.1.1.104.5 |
+| AV1                  | date/E/S/      (odd) | sp tm        (2) | .av1    (4)  | spatial or temporal           |
+| Instance+sop+private | date/E/S/I/   (even) | priv ----    (4) | .blake3 (65) | private + 0002                |
+| Frame                | date/E/S/I/F/ (even) | 00001..99999 (5) |              | one frame one file F=[G|R|P]  |
 
 
 - date, E, S, codified uibb64 ("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz~") are url safe
