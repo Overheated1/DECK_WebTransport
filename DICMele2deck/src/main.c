@@ -13,7 +13,7 @@ FILE *inFile;
 char *DICM;//CDICM in memory
 u64   DICMsize;
 u64   DICMidx;
-u8 *CKEY;//contextual keys [0]=key chain size
+u8   *CKEY;//contextual keys [0]=key chain size
 u32   CKEYidx=1;
 
 u8 encapsulated;
@@ -29,22 +29,23 @@ u16  alloc;
 u16  bits;
 u16  high;
 u16  sign;//pixrep 0028013 0=unsigned 1=signed
-u16  comp;//planar 0 = RGB del pixel; 1 = componentes RGB (samples)
+u16  comp;//1,3
+u16  plan;//planar 0 = RGB del pixel; 1 = componentes RGB (samples)
 
 
 //for SOP identification
 char eDA[5];
-u32 eDAlength;
-char eUI[48];
-u32 eUIlength;
-char sUI[48];
-u32 sUIlength;
-char cUI[48];
-u32 cUIlength;
-char iUI[48];
-u32 iUIlength;
-char pUI[48];//pyramid
-u32 pUIlength;
+u8 eDAlength;
+char eUI[44];
+u8 eUIlength;
+char sUI[44];
+u8 sUIlength;
+char cUI[44];
+u8 cUIlength;
+char iUI[44];
+u8 iUIlength;
+char pUI[44];//pyramid
+u8 pUIlength;
 
 
 //recursive
@@ -70,6 +71,7 @@ int dicmDataset(
                case 0x280011: cols=DICM[DICMidx]+(DICM[DICMidx+1]<<8); break;
                case 0x280010: rows=DICM[DICMidx]+(DICM[DICMidx+1]<<8); break;
                case 0x280002: comp= DICM[DICMidx]+(DICM[DICMidx+1]<<8); break;
+               case 0x280006: plan= DICM[DICMidx]+(DICM[DICMidx+1]<<8); break;
                case 0x280100: alloc=DICM[DICMidx]+(DICM[DICMidx+1]<<8); break;
                case 0x280101: bits=DICM[DICMidx]+(DICM[DICMidx+1]<<8); break;//15=16, 13=14, 11=12
                case 0x280102: high=DICM[DICMidx]+(DICM[DICMidx+1]<<8); break;
@@ -82,6 +84,10 @@ int dicmDataset(
          case UI: {
             attr->c=REPERTOIRE_GL;
             switch (attr->e) {
+               case 0x00080016: {
+                  cUIlength=ui2b64( DICM+DICMidx, attr->l, cUI );
+                  val(kvUc,attr);key(attr);
+               } break; //instance uid
                case 0x00080018: {
                   iUIlength=ui2b64( DICM+DICMidx, attr->l, iUI );
                   val(kvUi,attr);key(attr);

@@ -266,7 +266,8 @@ void val(enum kvVRcategory vrcat,struct Ercle* attr)
       }break;
 #pragma mark -ascii
       case kvUI://unique ID
-      case kvUi://unique ID 00080008
+      case kvUc://unique ID 00080016
+      case kvUi://unique ID 00080018
       case kvUe://unique ID 0020000D
       case kvUs://unique ID 0020000E
       case kvUp://unique ID 00080019 PyramidUID

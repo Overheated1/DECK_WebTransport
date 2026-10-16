@@ -13,7 +13,7 @@ extern char *DICM;
 extern u64   DICMidx;
 extern u64   DICMsize;
 
-extern u8 *CKEY;
+extern u8  *CKEY;
 extern u8   CKEYidx;
 
 //prepare output in memory

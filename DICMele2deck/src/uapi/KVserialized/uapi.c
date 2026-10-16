@@ -22,17 +22,17 @@ const u32    CSutf8size=10;
 
 //for SOP identification
 extern char eDA[4];
-extern u32 eDAlength;
+extern u8 eDAlength;
 extern char eUI[44];
-extern u32 eUIlength;
+extern u8 eUIlength;
 extern char sUI[44];
-extern u32 sUIlength;
+extern u8 sUIlength;
 extern char cUI[44];//class
-extern u32 cUIlength;
+extern u8 cUIlength;
 extern char iUI[44];
-extern u32 iUIlength;
+extern u8 iUIlength;
 extern char pUI[44];//pyramid
-extern u32 pUIlength;
+extern u8 pUIlength;
 
 #pragma mark ---------------------------- SOP instance
 

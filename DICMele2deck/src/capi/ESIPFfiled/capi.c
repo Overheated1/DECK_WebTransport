@@ -36,20 +36,21 @@ extern u16  alloc;
 extern u16  bits;
 extern u16  high;
 extern u16  sign;//pixrep 0028013 0=unsigned 1=signed
-extern u16  comp;//planar 0 = RGB del pixel; 1 = componentes RGB (samples)
+extern u16  comp;//1,3
+extern u16  plan;//if comp==3: planar 0 = RGB del pixel; 1 = componentes RGB (samples)
 
 extern char eDA[4];
 extern u8 eDAlength;
-extern char eUI[48];
+extern char eUI[44];
 extern u8 eUIlength;
-extern char sUI[48];
+extern char sUI[44];
 extern u8 sUIlength;
 
-extern char cUI[48];
+extern char cUI[44];
 extern u8 cUIlength;
-extern char iUI[48];
+extern char iUI[44];
 extern u8 iUIlength;
-extern char pUI[48];//pyramid
+extern char pUI[44];//pyramid
 extern u8 pUIlength;
 
 struct KV {
@@ -122,6 +123,7 @@ void ctrail(int argc, char *argv[]) {
     printf("sUI %*s\n",sUIlength,sUI);
     printf("iUI %*s\n",iUIlength,iUI);
     printf("pUI %*s\n",pUIlength,pUI);//pyramid
+    printf("cUI %*s\n",cUIlength,cUI);//class
 
     printf("photocode %u\n",photo);
     printf("rows %u\n",rows);
@@ -131,6 +133,7 @@ void ctrail(int argc, char *argv[]) {
     printf("high %u\n",high);
     printf("sign %u\n",sign);
     printf("comp %u\n",comp);
+    printf("plan %u\n",plan);
 
     //blake3 provides merkle-tree, incremental and fast hash (usefull to compare buffer)
     blake3_hasher hasher;

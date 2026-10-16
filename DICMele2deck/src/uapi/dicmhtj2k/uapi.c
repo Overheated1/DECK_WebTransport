@@ -25,7 +25,8 @@ extern u16  alloc;
 extern u16  bits;
 extern u16  high;
 extern u16  sign;//pixrep 0028013 0=unsigned 1=signed
-extern u16  comp;
+extern u16  comp;//1,3
+extern u16  plan;//if comp==3: planar 0 = RGB del pixel; 1 = componentes RGB (samples)
 
 //prepare output in memory
 char *SERIALIZE;//is also buffer for utf-8

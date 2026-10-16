@@ -23,32 +23,33 @@ enum kvVRcategory{
     kvUI,// 7 UI unique ID possibly padded with 0x00
     kvUe,// 8 Ue unique ID possibly padded with 0x00 for tag 0020000D study UID
     kvUs,// 9 Us unique ID possibly padded with 0x00 for tag 0020000E series UID
-    kvUi,//10 Ui unique ID possibly padded with 0x00 for tag 00080008 Instance UID
-    kvUp,//11 Up unique ID possibly padded with 0x00 for tag 00080019 Pyramid UID
-    kvTP,//12 AS DT TM DA text short ascii pair length
-    kvTA,//13 AE DS IS 13 text short ascii
-    kvCS,//14 CS Code String
-    kvCs,//15 Cs Code String 00080005 read in main to enable charset control
-    kvTS,//16 LO LT SH ST text short charset
-    kvPN,//17 PN person name has a special treatment in json and xml
-    kv01,//18 other OB OD OF OL OV OW SV UV binary except pixel
-    kvTL,//19 UC UT text long charset
-    kvTU,//20 UR text long url-encoded
-    kvSA,//21 SQ head with length 0xffffffff terminated by end tag
-    kvSa,//22 SQ head with specified length
-    kvIA,//23 item head with length 0xffffffff terminated by end tag
-    kvIa,//24 item head with specified length
-    kvIZ,//25 item tail tag of item of undefined size
-    kvIz,//26 item tail added
-    kvSZ,//27 SQ tail tag of SQ of undefined size
-    kvSz,//28 SQ tail added
-    kvUN,//29 UN
-    kPDF,//30
-    kCDA,//31
-    kSTL,//32
-    kOBJ,//33
-    kMTL,//34
-    kPIX//35 0x7FE00010 OB / OW
+    kvUi,//10 Ui unique ID possibly padded with 0x00 for tag 00080018 Instance UID
+    kvUc,//11 Ui unique ID possibly padded with 0x00 for tag 00080016 Class UID
+    kvUp,//12 Up unique ID possibly padded with 0x00 for tag 00080019 Pyramid UID
+    kvTP,//13 AS DT TM DA text short ascii pair length
+    kvTA,//14 AE DS IS 13 text short ascii
+    kvCS,//15 CS Code String
+    kvCs,//16 Cs Code String 00080005 read in main to enable charset control
+    kvTS,//17 LO LT SH ST text short charset
+    kvPN,//18 PN person name has a special treatment in json and xml
+    kv01,//19 other OB OD OF OL OV OW SV UV binary except pixel
+    kvTL,//20 UC UT text long charset
+    kvTU,//21 UR text long url-encoded
+    kvSA,//22 SQ head with length 0xffffffff terminated by end tag
+    kvSa,//23 SQ head with specified length
+    kvIA,//24 item head with length 0xffffffff terminated by end tag
+    kvIa,//25 item head with specified length
+    kvIZ,//26 item tail tag of item of undefined size
+    kvIz,//27 item tail added
+    kvSZ,//28 SQ tail tag of SQ of undefined size
+    kvSz,//29 SQ tail added
+    kvUN,//30 UN
+    kPDF,//31
+    kCDA,//32
+    kSTL,//33
+    kOBJ,//34
+    kMTL,//35
+    kPIX//36 0x7FE00010 OB / OW
     };
 
 
