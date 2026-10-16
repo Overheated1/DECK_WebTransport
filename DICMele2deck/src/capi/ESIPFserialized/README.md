@@ -52,12 +52,13 @@ The object length is exact, with no padding null char in case the length is odd.
 | MXF                  | date/E/S/          (odd) | mf             (2) | .mxf    (4)  | codec jh inside mxf container |
 | JXL                  | date/E/S/          (odd) | sf             (2) | .jxl    (4)  | codec jpeg xl monoframe       |
 | MP4                  | date/E/S/          (odd) | mf             (2) | .mp4    (4)  | codec av1 inside mp4 container|
-| Frames htj2k -> MXF  | date/E/S/H/       (even) | 00001..99999   (5) |              | frame file/image number       |
-| Frames png -> AV1 mp4| date/E/S/P/       (even) | 00001..99999   (5) |              | frame file/image number       |
-| Instance+sop+private | date/E/S/I/       (even) | priv ----      (4) | .blake3 (65) | private + 0002                |
+| bitmap htj2k -> MXF  | date/E/S/c/       (even) | 0001..9999     (4) | .blake3 (65) | frame/image number compressed |
+| bitmap png -> AV1 mp4| date/E/S/b/       (even) | 0001..9999     (4) | .blake3 (65) | frame/image number bitmap     |
+| dicom instance       | date/E/S/I/d/     (even) | 0001..9999 ----(4) | .blake3 (65) | frame/image number or multi   |
+| private + sop        | date/E/S/I/p/     (even) | 0001..9999 ----(4) | .blake3 (65) | frame/image number or multi   |
 
 - there shall exist only one of PDF, CDA, STL, OBJ, MTL, MXF, JXL or MP4 file within the series
 - H and P receive individual frames in htj2k and png respectively from multiframes or multiple instances.
-When the series is complete another process creates a mf.mxf (which gathers the htj2k) or a mf.mp4 (which gathers the png)
+When the series is complete another process creates a mf.mxf (sequences htj2k) or a mf.mp4 (sequences png)
 - date, E, S, I, codified uibb64 ("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz~") are url safe
 of even length, lower than 45.
