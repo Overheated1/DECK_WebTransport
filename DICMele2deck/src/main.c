@@ -10,7 +10,7 @@
 struct timespec starttime,inputtime, parsetime,finishtime;
 FILE *inFile;
 
-char *DICM;//CDICM in memory
+u8   *DICM;//DICM in memory
 u64   DICMsize;
 u64   DICMidx;
 u8   *CKEY;//contextual keys [0]=key chain size
