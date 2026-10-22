@@ -68,5 +68,4 @@ will also improve greatly the speed of learning of Artificial Intelligence model
 ---
 
 Though this project is born in the Mercosur, contributions shall be written in english,
-to facilitate the communication with Fovia, provider of the visualization sdk for our project
-and with Kyber, provider del framework WebTransport.
+to facilitate international collaboration.
