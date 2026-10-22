@@ -5,10 +5,10 @@ The interoperability with preexisting DICOM PACS is limited to DICOM Store SCP
 through a specialized proxy, that we call PCS (Picture Communication System).
 
 ## PCS
-- converts DICM to DECK sqlite
+- parses DICM SOP files into DECK file system
 - compresses imaging series pixels
-- forwards DECK sqlite and corresponding resources to SIRIUS webtransport pacs,
-preserving the network security of the hospital.
+- forwards DECK file system to SIRIUS webtransport PACS
+- protects the imaging network security of the hospital
 
 ## PACS
 SIRIUS WebTransportPacs is no standard PACS, 
@@ -38,11 +38,11 @@ will demonstrate SIRIUS WebTransport to be the most savvy and reactive DICOM vie
 - third: as a corollary, our DECK representation of DICOM datasets and transport of selected attributes 
 will also improve greatly the speed of learning of Artificial Intelligence models.
 
-- fourth: as a second corollary, the deployment of SIRIUS WebTransport pacs in the cloud will be cheaper, since:
+- fourth: as a second corollary, the deployment of SIRIUS WebTransport PACS in the cloud will be cheaper, since:
    - compression is performed locally in the PCS
    - discrete access to attributes avoids unnecessary readings
    - almost real time streaming aborts unnecessary downloads
-   - HTTP3 WebTransport supports source shifting without restarting operations.
+   - HTTP3 WebTransport supports network entry shifting without restarting operations.
 
 ## Keywords
 
