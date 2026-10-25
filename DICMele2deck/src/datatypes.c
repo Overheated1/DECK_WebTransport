@@ -108,8 +108,8 @@ u32 u32swap(u32 x)
 
 u16 u16swap(u16 x)
 {
-   return ((x &   0xff)>>8)
-         |((x & 0xff00)<<8);
+   return ((x &   0xff)<<8)
+         |((x & 0xff00)>>8);
 }
 
 u32 tagswap(u32 x)
