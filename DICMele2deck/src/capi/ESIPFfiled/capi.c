@@ -55,8 +55,7 @@ extern u8 pUIlength;
 
 struct KV {
     u8    Kl;
-    char *K ;//key length (1 byte) followed by key
-    char Kpadding;//when charset ends with zero byte, the struct may overwrite it. Kpadding avoids it
+    u8    K[97] ;//key length same than CKEY so SEQUENCE doesn't overflow and overwrite the next data, no padding needed now
     u32   Vl;//value length written LE
     char *Vp;//value pointer
 };
