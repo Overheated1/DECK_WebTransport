@@ -101,6 +101,7 @@ void key(struct Ercle* attr)
       case UT://unlimited text
       case UR://universal resource url identifier/locator
       case SQ://sequence
+      case UN:
       {
          memcpy(&attr->l,DICM+DICMidx,4);
          DICMidx+=4;
