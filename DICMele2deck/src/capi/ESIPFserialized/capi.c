@@ -183,7 +183,7 @@ void ctrail(int argc, char *argv[]) {
     char* blake3offset=groupKey+eUIlength+10;
     for (u32 hexa=0;hexa<32;hexa++) { sprintf(blake3offset+hexa+hexa, "%02x", blake32[hexa]);}
 
-    memcpy(groupKey+eUIlength+74,&eKVlength,4);
+    memcpy(groupKey+eUIlength+74,&cursor,4);
 
     //EXAM fwrite group E + size
     //groupkey malloc makes it a pointer, char groupbyte[x] makes it a char
@@ -226,7 +226,7 @@ void ctrail(int argc, char *argv[]) {
     blake3offset=groupKey+eUIlength+sUIlength+12;
     for (u32 hexa=0;hexa<32;hexa++) { sprintf(blake3offset+hexa+hexa, "%02x", blake32[hexa]);}
 
-    memcpy(groupKey+eUIlength+sUIlength+76,&sKVlength,4);
+    memcpy(groupKey+eUIlength+sUIlength+76,&cursor,4);
 
     //SERIES fwrite group ES + size
     //groupkey malloc makes it a pointer, char groupbyte[x] makes it a char
@@ -372,7 +372,7 @@ void ctrail(int argc, char *argv[]) {
     blake3offset=groupKey+eUIlength+sUIlength+iUIlength+14;
     for (u32 hexa=0;hexa<32;hexa++) { sprintf(blake3offset+hexa+hexa, "%02x", blake32[hexa]);}
 
-    memcpy(groupKey+eUIlength+sUIlength+iUIlength+78,&iKVlength,4);
+    memcpy(groupKey+eUIlength+sUIlength+iUIlength+78,&cursor,4);
 
     //INSANTACE fwrite group ESI + size
     //groupkey malloc makes it a pointer, char groupbyte[x] makes it a char
@@ -413,7 +413,7 @@ void ctrail(int argc, char *argv[]) {
         blake3offset=groupKey+eUIlength+sUIlength+iUIlength+14;
         for (u32 hexa=0;hexa<32;hexa++) { sprintf(blake3offset+hexa+hexa, "%02x", blake32[hexa]);}
 
-        memcpy(groupKey+eUIlength+sUIlength+iUIlength+78,&pKVlength,4);
+        memcpy(groupKey+eUIlength+sUIlength+iUIlength+78,&cursor,4);
 
         //PRIVATE fwrite group ESI + size
         //groupkey malloc makes it a pointer, char groupbyte[x] makes it a char
