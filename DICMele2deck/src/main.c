@@ -94,7 +94,7 @@ int dicmDataset(
                } break; //instance uid
                case 0x00080019: {
                   pUIlength=ui2b64( DICM+DICMidx, attr->l, pUI );
-                  val(kvUs,attr);key(attr);
+                  val(kvUp,attr);key(attr);
                } break; //PyramidUID
                case 0x0020000D: {
                   eUIlength=ui2b64( DICM+DICMidx, attr->l, eUI );
