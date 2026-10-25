@@ -149,6 +149,7 @@ void ctrail(int argc, char *argv[]) {
 
     //---------------------------- date dir
     memcpy(groupKey+1,eDA,4);
+    groupKey[5]=0x00;
     if ((mkdir(groupKey+1, 0777)==-1) && (errno!=17)) //0=created -1=failed 17=already existing
     {
         printf("Failed to create directory %s: %d %s\n", groupKey+1, errno, strerror(errno));
@@ -160,6 +161,7 @@ void ctrail(int argc, char *argv[]) {
     bool newDir=true;
     //---------------------------- E dir
     memcpy(groupKey+6,eUI,eUIlength);
+    groupKey[eUIlength+6]=0x00;
     if (mkdir(groupKey+1, 0777)==-1) {//0=created -1=failed
         if (errno!=17) //17=already existing
         {
