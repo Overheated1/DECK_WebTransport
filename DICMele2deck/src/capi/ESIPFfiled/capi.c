@@ -251,7 +251,7 @@ void ctrail(int argc, char *argv[]) {
         }
     }
     blake3_hasher_reset(&hasher);
-    blake3_hasher_update(&hasher, groupBytes, sKVlength);
+    blake3_hasher_update(&hasher, groupBytes, cursor);
     blake3_hasher_finalize(&hasher,blake32, BLAKE3_OUT_LEN);
     //as string hexa representation
     blake3offset=groupKey+eUIlength+sUIlength+12;
@@ -331,7 +331,7 @@ void ctrail(int argc, char *argv[]) {
         }
     }
     blake3_hasher_reset(&hasher);
-    blake3_hasher_update(&hasher, groupBytes, iKVlength);
+    blake3_hasher_update(&hasher, groupBytes, cursor);
     blake3_hasher_finalize(&hasher,blake32, BLAKE3_OUT_LEN);
     //as string hexa representation
     blake3offset=groupKey+eUIlength+sUIlength+iUIlength+14;
@@ -375,7 +375,7 @@ void ctrail(int argc, char *argv[]) {
             }
         }
         blake3_hasher_reset(&hasher);
-        blake3_hasher_update(&hasher, groupBytes, pKVlength);
+        blake3_hasher_update(&hasher, groupBytes, cursor);
         blake3_hasher_finalize(&hasher,blake32, BLAKE3_OUT_LEN);
         //as string hexa representation
         blake3offset=groupKey+eUIlength+sUIlength+iUIlength+14;
