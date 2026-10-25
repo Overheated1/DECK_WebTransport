@@ -610,3 +610,11 @@ void fAttribute(enum kvVRcategory vrcat,struct Ercle* attr){
     DICMidx+=attr->l;
 }
 
+//https://dicom.nema.org/medical/dicom/2023e/output/chtml/part03/sect_F.7.html
+void iconAttribute(enum kvVRcategory vrcat,struct Ercle* attr) {
+    //logo icon: not serialized
+    printf("logo %08X\n",u32swap(*(u32*)(CKEY+1)));
+    DICMidx+=attr->l;
+}
+
+
