@@ -119,7 +119,7 @@ void cinput( int argc, char *argv[])
 void ctrail(int argc, char *argv[]) {
 
     printf("eDA %*s\n",eDAlength,eDA);
-    printf("eUI %*s\n",sUIlength,sUI);
+    printf("eUI %*s\n",eUIlength,eUI);
     printf("sUI %*s\n",sUIlength,sUI);
     printf("iUI %*s\n",iUIlength,iUI);
     printf("pUI %*s\n",pUIlength,pUI);
@@ -233,7 +233,7 @@ void ctrail(int argc, char *argv[]) {
     if (  (fwrite(groupKey, 1, eUIlength+sUIlength+80, fileptr) != eUIlength+sUIlength+80)
         ||(fwrite(&groupBytes, 1, cursor, fileptr) != cursor)
         ) {
-        printf("%s", "cannot write E\n");
+        printf("%s", "cannot write S\n");
         exit(-33);
     }
 
@@ -379,7 +379,7 @@ void ctrail(int argc, char *argv[]) {
     if (  (fwrite(groupKey, 1, eUIlength+sUIlength+iUIlength+82, fileptr) != eUIlength+sUIlength+iUIlength+82)
         ||(fwrite(&groupBytes, 1, cursor, fileptr) != cursor)
         ) {
-        printf("%s", "cannot write E\n");
+        printf("%s", "cannot write I\n");
         exit(-33);
         }
 
@@ -420,7 +420,7 @@ void ctrail(int argc, char *argv[]) {
         if (  (fwrite(groupKey, 1, eUIlength+sUIlength+iUIlength+82, fileptr) != eUIlength+sUIlength+iUIlength+82)
             ||(fwrite(&groupBytes, 1, cursor, fileptr) != cursor)
             ) {
-            printf("%s", "cannot write E\n");
+            printf("%s", "cannot write P\n");
             exit(-33);
             }
     }
@@ -441,7 +441,7 @@ void ctrail(int argc, char *argv[]) {
                 if (  (fwrite(groupKey, 1, eUIlength+sUIlength+iUIlength+22, fileptr) != eUIlength+sUIlength+iUIlength+22)
                     ||( fwrite(pix.Vp+(f*cursor), 1, cursor, fileptr) != cursor))
                 {
-                    printf("%s", "cannot write E\n");
+                    printf("%s", "cannot write frame\n");
                     exit(-33);
                 }
             }
@@ -454,7 +454,7 @@ void ctrail(int argc, char *argv[]) {
                 if (  (fwrite(groupKey, 1, eUIlength+sUIlength+iUIlength+22, fileptr) != eUIlength+sUIlength+iUIlength+22)
                     ||( fwrite(pix.Vp+(f*cursor), 1, cursor, fileptr) != cursor))
                 {
-                    printf("%s", "cannot write E\n");
+                    printf("%s", "cannot write frame\n");
                     exit(-33);
                 }
             }
@@ -467,7 +467,7 @@ void ctrail(int argc, char *argv[]) {
                 if (  (fwrite(groupKey, 1, eUIlength+sUIlength+iUIlength+22, fileptr) != eUIlength+sUIlength+iUIlength+22)
                     ||( fwrite(pix.Vp+(f*cursor), 1, cursor, fileptr) != cursor))
                 {
-                    printf("%s", "cannot write E\n");
+                    printf("%s", "cannot write frame\n");
                     exit(-33);
                 }
             }

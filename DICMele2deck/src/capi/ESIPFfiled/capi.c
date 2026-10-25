@@ -118,7 +118,7 @@ void cinput( int argc, char *argv[])
 void ctrail(int argc, char *argv[]) {
 
     printf("eDA %*s\n",eDAlength,eDA);
-    printf("eUI %*s\n",sUIlength,sUI);
+    printf("eUI %*s\n",eUIlength,eUI);
     printf("sUI %*s\n",sUIlength,sUI);
     printf("iUI %*s\n",iUIlength,iUI);
     printf("pUI %*s\n",pUIlength,pUI);//pyramid
@@ -390,7 +390,7 @@ void ctrail(int argc, char *argv[]) {
             }
             if (fwrite(&groupBytes, 1, cursor, privateptr) != cursor)
             {
-                printf("cannot write I to %s\n",groupKey+1);
+                printf("cannot write P to %s\n",groupKey+1);
                 exit(-33);
             }
             fclose(privateptr);
