@@ -109,12 +109,14 @@ void val(enum kvVRcategory vrcat,struct Ercle* attr)
       case kvUL: {
          if (attr->E < 0x10000) {//ignore group length
             //copy everything before key
-            memcpy(SERIALIZE+Soffset,DICM+Doffset-8,DICMidx-Doffset-8);
+            memcpy(SERIALIZE+Soffset,DICM+Doffset,DICMidx-Doffset-8);
             Soffset+=DICMidx-Doffset-8;
-
+            DICMidx+=attr->l;
+            Doffset=DICMidx;
+         } else {
+            DICMidx+=attr->l;
          }
-         DICMidx+=attr->l;
-         Doffset=DICMidx;
+
       } break;
 
 #pragma mark - sequence and item with end tag
