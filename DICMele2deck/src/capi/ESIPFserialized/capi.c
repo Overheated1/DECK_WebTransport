@@ -436,10 +436,10 @@ void ctrail(int argc, char *argv[]) {
         case MONOCHROME1:
         case MONOCHROME2:
         {
-            snprintf(groupKey+eUIlength+sUIlength+iUIlength+9,10,"%05d.pix",fram);
-            for (int f=1;f <= fram+1;f++) {
+            for (int f=0; f<fram; f++) {
+                snprintf(groupKey+eUIlength+sUIlength+iUIlength+9,10,"%05d.pix",f+1);
                 if (  (fwrite(groupKey, 1, eUIlength+sUIlength+iUIlength+22, fileptr) != eUIlength+sUIlength+iUIlength+22)
-                    ||( fwrite(pix.Vp, 1, cursor, fileptr) != cursor))
+                    ||( fwrite(pix.Vp+(f*cursor), 1, cursor, fileptr) != cursor))
                 {
                     printf("%s", "cannot write E\n");
                     exit(-33);
@@ -449,10 +449,10 @@ void ctrail(int argc, char *argv[]) {
 
         case PALETTE:
         {
-            snprintf(groupKey+eUIlength+sUIlength+iUIlength+9,10,"%05d.pix",fram);
-            for (int f=1;f <= fram+1;f++) {
+            for (int f=0; f<fram; f++) {
+                snprintf(groupKey+eUIlength+sUIlength+iUIlength+9,10,"%05d.pix",f+1);
                 if (  (fwrite(groupKey, 1, eUIlength+sUIlength+iUIlength+22, fileptr) != eUIlength+sUIlength+iUIlength+22)
-                    ||( fwrite(pix.Vp, 1, cursor, fileptr) != cursor))
+                    ||( fwrite(pix.Vp+(f*cursor), 1, cursor, fileptr) != cursor))
                 {
                     printf("%s", "cannot write E\n");
                     exit(-33);
@@ -462,10 +462,10 @@ void ctrail(int argc, char *argv[]) {
 
         case RGB: {
             //needs to interleave instead of plane by plane
-            snprintf(groupKey+eUIlength+sUIlength+iUIlength+9,10,"%05d.pix",fram);
-            for (int f=1;f <= fram+1;f++) {
+            for (int f=0; f<fram; f++) {
+                snprintf(groupKey+eUIlength+sUIlength+iUIlength+9,10,"%05d.pix",f+1);
                 if (  (fwrite(groupKey, 1, eUIlength+sUIlength+iUIlength+22, fileptr) != eUIlength+sUIlength+iUIlength+22)
-                    ||( fwrite(pix.Vp, 1, cursor, fileptr) != cursor))
+                    ||( fwrite(pix.Vp+(f*cursor), 1, cursor, fileptr) != cursor))
                 {
                     printf("%s", "cannot write E\n");
                     exit(-33);
