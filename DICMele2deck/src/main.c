@@ -87,7 +87,7 @@ int dicmDataset(
                case 0x00080016: {
                   cUIlength=ui2b64( DICM+DICMidx, attr->l, cUI );
                   val(kvUc,attr);key(attr);
-               } break; //instance uid
+               } break; //class uid
                case 0x00080018: {
                   iUIlength=ui2b64( DICM+DICMidx, attr->l, iUI );
                   val(kvUi,attr);key(attr);
