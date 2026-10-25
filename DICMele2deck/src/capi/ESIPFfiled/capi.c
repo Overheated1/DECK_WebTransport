@@ -568,8 +568,8 @@ void cdaAttribute(enum kvVRcategory vrcat,struct Ercle* attr) {
 
     // find <d, <C o <s within the first 160 first chars
     for (u8 c=0; c < 0xA0; c++) {
-        if (*data.Vp+c == 'c') {
-            switch (*data.Vp+c+1) {
+        if (*(data.Vp+c) == 'c') {
+            switch (*(data.Vp+c+1)) {
                 case 'd': dataFilename="dc.xml"; break;
                 case 's': dataFilename="sc.xml"; break;
                 case 'C': dataFilename="uc.xml"; break;

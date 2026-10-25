@@ -261,8 +261,8 @@ void ctrail(int argc, char *argv[]) {
         char a='o';
         char b='t';
         for (u8 c=0; c < 0xA0; c++) {
-            if (*cda.Vp+c == 'c') {
-                switch (*cda.Vp+c+1) {
+            if (*(cda.Vp+c) == 'c') {
+                switch (*(cda.Vp+c+1)) {
                     case 'd': { a='d';b='s';c=0xA0;} break;
                     case 's': { a='s';b='c';c=0xA0;} break;
                     case 'C': { a='u';b='c';c=0xA0;} break;
