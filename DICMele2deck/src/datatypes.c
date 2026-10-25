@@ -114,10 +114,10 @@ u16 u16swap(u16 x)
 
 u32 tagswap(u32 x)
 {
-   return ((x & 0xff       <<16))
-         |((x & 0xff00    << 8))
-         |((x & 0xff0000  >>16))
-         |((x & 0xff000000 >>24));
+   return ((x & 0xff)       <<8)
+         |((x & 0xff00)    >> 8)
+         |((x & 0xff0000)  <<8)
+         |((x & 0xff000000) >>8);
 }
 
 #pragma mark - uid shrink
