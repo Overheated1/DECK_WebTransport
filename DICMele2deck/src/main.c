@@ -142,7 +142,7 @@ int dicmDataset(
                }; break;
                case 0x00280004:{//photocode (photometric interpretation)
                   photo=10;
-                  while (photo>0 && strncmp(photoCS[photo],DICM+DICMidx,attr->l)) photo--;
+                  while (photo>0 && (strncmp(photoCS[photo],DICM+DICMidx,attr->l) || strlen(photoCS[photo]) != attr->l )) photo--;
                }
                default: { val(kvCS,attr); key(attr);} break;
             }
