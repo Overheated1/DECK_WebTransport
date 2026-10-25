@@ -111,3 +111,8 @@ void mtlAttribute(enum kvVRcategory vrcat,struct Ercle* attr) {
     DICMidx+=attr->l;
 }
 
+void iconAttribute(enum kvVRcategory vrcat,struct Ercle* attr) {
+    printf("ICON %08X\n",u32swap(*(u32*)(CKEY+1)));
+    DICMidx+=attr->l;
+}
+
