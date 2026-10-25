@@ -1119,7 +1119,6 @@ void val(enum kvVRcategory vrcat,struct Ercle* attr) {
                if (memcmp(rootTag, &PCStag[PCSidx], 4)==0){
                   if (PCStype[PCSidx]==0) eAttribute(vrcat,attr);
                   else                    sAttribute(vrcat,attr);
-                  PCSidx++;
                } else iAttribute(vrcat,attr);
             }
          }
