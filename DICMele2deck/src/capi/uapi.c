@@ -1014,6 +1014,7 @@ extern u8    CKEYidx;
 
 static u16   PCSidx;
 
+#define PCSLength (sizeof(PCStag) / sizeof(PCStag[0]))
 
 
 #pragma mark ---------------------------- SOP instance
@@ -1114,7 +1115,7 @@ void val(enum kvVRcategory vrcat,struct Ercle* attr) {
 
             if (memcmp(rootTag, &PCStag[PCSidx], 4) < 0) iAttribute(vrcat,attr); //rootTag smaller than index
             else {
-               while ((memcmp(rootTag, &PCStag[PCSidx], 4) > 0) && (PCSidx < 234)) (PCSidx)++;
+               while ((memcmp(rootTag, &PCStag[PCSidx], 4) > 0) && (PCSidx < (PCSLength - 1))) (PCSidx)++;
                if (memcmp(rootTag, &PCStag[PCSidx], 4)==0){
                   if (PCStype[PCSidx]==0) eAttribute(vrcat,attr);
                   else                    sAttribute(vrcat,attr);
