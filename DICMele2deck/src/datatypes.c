@@ -112,12 +112,9 @@ u16 u16swap(u16 x)
          |((x & 0xff00)>>8);
 }
 
-u32 tagswap(u32 x)
+u32 DICMtagLE2BEswap(u32 x)
 {
-   return ((x & 0xff)       <<8)
-         |((x & 0xff00)    >> 8)
-         |((x & 0xff0000)  <<8)
-         |((x & 0xff000000) >>8);
+   return ((x & 0xFF00FF00) >> 8) | ((x & 0x00FF00FF) << 8);
 }
 
 #pragma mark - uid shrink
